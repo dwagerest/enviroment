@@ -1,11 +1,11 @@
 - hosts: localhost
   become: true
   vars:
-    username: "{{ username }}"
+    username: "{{ uss }}"
   tasks:
     - name: debug username
       debug:
-        msg: path is /home/{{ username }}/
+        msg: path is /home/{{ uss }}/
     - name: Update apt cache
       apt: update_cache=yes
     - name: install packages
@@ -17,4 +17,4 @@
         src: .zshrc
         dest: /home/{{ username }}/.zshrc
     - name: oh my zsh install
-      shell: sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+      shell: 'sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
