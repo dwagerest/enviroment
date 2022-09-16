@@ -9,6 +9,7 @@
       become: true
       apt: update_cache=yes
     - name: install packages
+      become: true
       apt:
         pkg:
           - zsh
