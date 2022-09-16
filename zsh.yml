@@ -4,7 +4,7 @@
   tasks:
     - name: debug username
       debug:
-        msg: path is /home/{{ username }}/
+        msg: path is "{{ ansible_env.HOME }}" 
     - name: Update apt cache
       become: true
       apt: update_cache=yes
@@ -16,7 +16,7 @@
           - tmux
           - powerline
     - name: rm ohmyzsh if it is
-      shell: 'rm -fr /home/{{ username }}/.oh-my-zsh'
+      shell: 'rm -fr {{ ansible_env.HOME}}/.oh-my-zsh'
     - name: oh my zsh install
       shell: 'sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
     - name: install autosuggestions
@@ -24,7 +24,7 @@
     - name: copy .zsh  and .tmux settings
       template:
         src: "{{ item.src }}"
-        dest: /home/{{ username }}/
+        dest: "/{{ ansible_env.HOME }}"
       with_items:
         - { src: .zshrc }
         - { src: .tmux.conf }
