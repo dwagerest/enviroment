@@ -1,17 +1,19 @@
 - hosts: localhost
-  become: true
   vars:
-    username: "{{ uss }}"
+    username: "{{ ansible_user_id }}"
   tasks:
     - name: debug username
       debug:
-        msg: path is /home/{{ uss }}/
+        msg: path is /home/{{ username }}/
     - name: Update apt cache
+      become: true
       apt: update_cache=yes
     - name: install packages
       apt:
         pkg:
           - zsh
+          - tmux
+          - powerline
     - name: copy .zsh settings
       copy:
         src: .zshrc
