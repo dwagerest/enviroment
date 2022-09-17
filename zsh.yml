@@ -21,6 +21,16 @@
       shell: 'sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
     - name: install autosuggestions
       shell: 'git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions'
+
+
+    - name: change user shell to zsh 
+      become: yes
+      user:
+        name: "{{ username }}"
+        shell: /bin/zsh        
+    - name: install syntax
+      shell: git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+  
     - name: copy .zsh  and .tmux settings
       template:
         src: "{{ item.src }}"
@@ -28,8 +38,3 @@
       with_items:
         - { src: .zshrc }
         - { src: .tmux.conf }
-    - name: change user shell to zsh 
-      become: yes
-      user:
-        name: "{{ username }}"
-        shell: /bin/zsh        

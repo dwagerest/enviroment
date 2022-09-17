@@ -72,7 +72,9 @@ ZSH_THEME="agnoster"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git
 	zsh-autosuggestions
+	zsh-syntax-highlighting
 	)
+
 
 ZSH_TMUX_AUTOSTART=true
 
