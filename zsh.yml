@@ -38,3 +38,7 @@
       with_items:
         - { src: .zshrc }
         - { src: .tmux.conf }
+    - name: copy theme
+      copy:
+        src: agnoster.zsh-theme
+        dest: "{{ansible_env.HOME}}/.oh-my-zsh/themes"
