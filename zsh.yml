@@ -38,6 +38,7 @@
       with_items:
         - { src: .zshrc }
         - { src: .tmux.conf }
+        - { src: .tmux.conf.local }
     - name: copy theme
       copy:
         src: agnoster.zsh-theme
