@@ -15,8 +15,9 @@
           - zsh
           - tmux
           - powerline
-    - name: rm ohmyzsh if it is
-      shell: 'rm -fr {{ ansible_env.HOME}}/.oh-my-zsh'
+    - name: rm ohmyzsh and vundle if it is 
+      shell: 'rm -fr {{ ansible_env.HOME}}/.oh-my-zsh  {{ ansible_env.HOME}}/.vim/bundle/Vundle.vim'
+
     - name: oh my zsh install
       shell: 'sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
     - name: install autosuggestions
@@ -31,6 +32,8 @@
     - name: install syntax
       shell: git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
   
+    - name: vim vundle
+      shell: 'git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim'
     - name: copy .zsh  and .tmux settings
       template:
         src: "{{ item.src }}"
@@ -39,6 +42,7 @@
         - { src: .zshrc }
         - { src: .tmux.conf }
         - { src: .tmux.conf.local }
+        - { src: .vimrc }
     - name: copy theme
       copy:
         src: agnoster.zsh-theme
