@@ -16,7 +16,8 @@
           - tmux
           - powerline
     - name: rm ohmyzsh and vundle if it is 
-      shell: 'rm -fr {{ ansible_env.HOME}}/.oh-my-zsh  {{ ansible_env.HOME}}/.vim/bundle/Vundle.vim'
+      shell: 'rm -fr {{ ansible_env.HOME}}/.oh-my-zsh  {{ ansible_env.HOME}}/.zshrc.p* {{ ansible_env.HOME}}/.vim/bundle/Vundle.vim'
+
 
     - name: oh my zsh install
       shell: 'sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
