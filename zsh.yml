@@ -42,7 +42,6 @@
       with_items:
         - { src: .zshrc }
         - { src: .tmux.conf }
-        - { src: .tmux.conf.local }
         - { src: .vimrc }
     - name: copy theme
       copy:
