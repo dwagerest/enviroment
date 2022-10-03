@@ -12,7 +12,7 @@ set number
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'stephpy/vim-yaml'
 Plugin 'indentLine.vim'
-let g:indentLine_color_term = 239
+let g:indentLine_color_term = 39
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
