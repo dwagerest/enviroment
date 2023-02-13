@@ -1,0 +1,7 @@
+- hosts: localhost
+  remote_user: crunk
+  vars:
+    zsh:        false
+    kubernetes: true
+  roles:
+    - environment

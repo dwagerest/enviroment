@@ -1,0 +1,44 @@
+---
+# - name: Print all available facts
+#   debug:
+#     var: ansible_facts
+
+- name: install packages 
+  become: true
+  apt:
+    update_cache: true
+    pkg:
+      - zsh
+
+- name: Recursively remove directory
+  file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - "{{ ansible_env.HOME }}/.oh-my-zsh"
+    - "{{ ansible_env.HOME }}/.zshrc"
+
+- name: oh my zsh install
+  shell: 'sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
+
+- name: install zsh-syntax-highlighting
+  shell: git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+- name: install autosuggestions
+  shell: 'git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions'
+
+
+- name: copy files
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  loop:
+    - { src: "{{ role_path }}/files/agnoster.zsh-theme", dest: "{{ ansible_env.HOME }}/.oh-my-zsh/themes" }
+    - { src: "{{ role_path }}/files/.zshrc", dest: "{{ ansible_env.HOME }}" }     
+
+- name: change user shell to zsh 
+  become: yes
+  user:
+    name: "{{ ansible_env.USER }}"
+    shell: /bin/zsh     
+

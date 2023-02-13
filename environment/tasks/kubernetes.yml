@@ -1,0 +1,34 @@
+# - name: Recursively remove directory
+#   become: true
+#   file:
+#     path: "{{ item }}"
+#     state: absent
+#   loop:
+#     - "{{ ansible_env.HOME }}/kubectl"
+#     - /usr/local/bin/kubectl
+
+# - name: Get latest kubectl version
+#   uri:
+#     url: https://dl.k8s.io/release/stable.txt
+#     return_content: yes
+#   register: version
+
+# - name: Download the latest kubectl release
+#   uri:
+#     url: https://dl.k8s.io/release/{{ version.content }}/bin/linux/arm/kubectl
+#     dest: "{{ ansible_env.HOME }}"
+#   register: kubectl
+
+# - name: Move kubectl and change permissions
+#   become: true
+#   file:
+#     src: "{{ kubectl.path }}"
+#     dest: /usr/local/bin/kubectl
+#     state: hard
+#     owner: "{{ ansible_env.USER }}"
+#     group: "{{ ansible_env.USER }}"
+#     mode: u+rw,g-wx,o-rwx
+
+- name: Download
+  become: true
+  shell: "curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl && chmod +x ./kubectl && mv ./kubectl /usr/local/bin/kubectl"

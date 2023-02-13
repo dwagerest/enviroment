@@ -1,0 +1,4 @@
+- include_tasks: zsh.yml
+  when: zsh == true
+- include_tasks: kubernetes.yml
+  when: kubernetes == true
